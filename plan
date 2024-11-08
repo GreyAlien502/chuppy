@@ -1,0 +1,35 @@
+in:
+	instruments
+	song generator
+	midi file
+	midi port
+song audio:
+	instruments
+	song generator
+	midi file
+live audio:
+	instruments
+	midi port
+out:
+	song audio
+	live audio
+
+
+controls:
+	arguments:
+		instruments
+		song generator
+		midi port
+	stdin:
+		set/get:
+			instrument
+			loop length
+			file
+		rewrite old version
+		delete old versions
+
+loops:
+	writing audio
+	check song
+	check stdin
+		run command
