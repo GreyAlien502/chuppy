@@ -101,7 +101,7 @@ def sampler(samples,sample_rate,root=None,resample_method='stretch'):
 				self.busy = False
 			sample = samples[self.note]
 			if len(sample) == 0: return np.zeros(len(x))
-			return np.take(sample,(x*self.rate).astype(np.int),mode='clip')/10
+			return np.take(sample,(x*self.rate).astype(np.int16),mode='clip')/10
 	return output
 
 

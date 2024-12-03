@@ -59,9 +59,9 @@ def resample(sound,halfsteps):
 		sound,
 	)
 def stretch_resample(sound,ratio,window_size):
-	sample_range = n.linspace(0,int(len(sound)*ratio),num=len(sound),endpoint=False,dtype=n.int)
+	sample_range = n.linspace(0,int(len(sound)*ratio),num=len(sound),endpoint=False,dtype=n.int16)
 	phase = sample_range % window_size 
-	window = (sample_range / ratio / window_size).astype(n.int)
+	window = (sample_range / ratio / window_size).astype(n.int16)
 	return (
 		+n.take(sound, window*window_size + phase,mode='clip')*n.sqrt(phase/window_size)
 		+n.take(sound, (window+1)*window_size + phase, mode='clip')*n.sqrt(1-phase/window_size)
