@@ -122,6 +122,7 @@ import song
 song_updater = updater('song.py',song)
 
 
+volume = 1
 song_loop = looper(song.generate(instruments))
 live = multiplexer(instruments)
 recorder = midi_recorder(song_loop,4,'/dev/null')
@@ -130,7 +131,7 @@ combo_player = song_loop+live+recorder
 live.instrument=arguments.get('instrument',None)
 def reload_files():
 	print=lambda*args:__builtins__.print(*args,flush=True)
-	midi_audio_player = midi_audio(arguments.get('port','Midi Through Port-0'),combo_player,RATE,chunk=128*3,audio_device=arguments.get('audio-device','HDA Intel PCH: ALC3235 Analog (hw:0,0)'))
+	midi_audio_player = midi_audio(arguments.get('port','Midi Through Port-0'),combo_player*(lambda x:x*volume),RATE,chunk=128*3,audio_device=arguments.get('audio-device','HDA Intel PCH: ALC3235 Analog (hw:0,0)'))
 	while True:
 		try:
 			if not midi_audio_player.player.is_active():
@@ -180,6 +181,11 @@ for line in sys.stdin:
 				print(f't:{TEMPO}')
 			else:
 				TEMPO=int(command[1])
+		elif command[0] == 'v':
+			if len(command) == 1:
+				print(f'v:{volume}')
+			else:
+				volume=float(command[1])
 		elif command[0] == '0':
 			song_loop.samplenum = 0
 		elif command == ['clear']:
