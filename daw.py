@@ -135,6 +135,7 @@ def reload_files():
 	while True:
 		try:
 			if not midi_audio_player.player.is_active():
+				break#doesn't work
 				print('reconecting_to_audio')
 				midi_audio_player.close()
 				midi_audio_player = midi_audio(sys.argv[1],combo_player,RATE)
@@ -149,6 +150,7 @@ def reload_files():
 		except Exception as e:
 			printError(e)
 		time.sleep(1)
+	1/0
 threading.Thread(target=reload_files,daemon=True).start()
 
 for line in sys.stdin:
